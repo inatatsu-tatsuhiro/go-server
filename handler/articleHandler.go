@@ -1,17 +1,35 @@
 package handler
 
 import (
-    // "net/http"
+    "net/http"
 
-    // "api/article"
+    "api/article"
 
     "github.com/gin-gonic/gin"
 )
 
-func ArticleGet() gin.HandlerFunc {
+func ArticlesGet(articles *article.Articles) gin.HandlerFunc {
     return func(c *gin.Context) {
-        c.JSON(200, gin.H{
-            "message": "article get",
-        })
+        result := articles.GetAll()
+        c.JSON(http.StatusOK, result)
+    }
+}
+type ArticlePostRequest struct {
+    Title       string `json:"title"`
+    Body        string `json:"body"`
+}
+
+func ArticlePost(post *article.Articles) gin.HandlerFunc {
+    return func(c *gin.Context) {
+        requestBody := ArticlePostRequest{}
+        c.Bind(&requestBody)
+
+        item := article.Item{
+            Title:       requestBody.Title,
+            Body: requestBody.Body,
+        }
+        post.Add(item)
+
+        c.Status(http.StatusNoContent)
     }
 }

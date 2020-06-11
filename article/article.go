@@ -17,6 +17,6 @@ func (r *Articles) Add(item Item) {
 	r.Items = append(r.Items, item)
 }
 
-// func (r *Articles) GetAll() []Item {
-	
-// }
+func (r *Articles) GetAll() []Item {
+	return r.Items
+}

@@ -1,0 +1,2 @@
+# github.com/inatatsu-tatsuhiro/server
+./server.go:17:11: syntax error: unexpected db at end of statement
